@@ -1,3 +1,9 @@
+'''
+This program imports build_greeting from greeting.py and mocks a time/date to 
+test that the proper greeting output based on the time of day and day of the 
+year.
+'''
+
 from greeting import build_greeting
 from unittest.mock import patch
 from datetime import datetime
