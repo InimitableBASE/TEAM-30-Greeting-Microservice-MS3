@@ -121,9 +121,9 @@ def build_greeting(name):
     
     return greeting
 
-
-### Setup Folder and Text File upon initial run of program
 def main():
+    """Main Program loop"""
+    ### Setup Folder and text file, create if not present
     # Set Folder Name
     folder = "Greet Folder"
     file_path = os.path.join(folder, "greeting.txt")
@@ -139,7 +139,7 @@ def main():
     print(f"Watching '{file_path}' for updates...")
 
 
-    # ---------- Main loop ----------
+    ### Main Loop for processing requests
     # initialize text to ignore
     last_text = ""
     while True:
