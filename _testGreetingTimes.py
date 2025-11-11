@@ -1,8 +1,9 @@
 '''
 This program imports build_greeting from greeting.py and mocks a time/date to 
-test that the proper greeting output based on the time of day and day of the 
-year. IT IS NOT USED AS A TEST CALL TO THE MICROSERVICE - for that, see the 
-file _testGreeting.py 
+test/show that the proper greeting output will be provided based on the time 
+of day and day of the year for holidays. 
+IT IS NOT USED AS A TEST CALL TO THE MICROSERVICE - for that, see the 
+file _testGreeting.py.  
 '''
 
 from greeting import build_greeting
