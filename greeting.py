@@ -118,8 +118,23 @@ def build_greeting(name):
     holiday_greeting = get_us_holiday(now.date())
     if holiday_greeting:
         greeting += " " + holiday_greeting
-    
     return greeting
+
+def readTxtFile(file_path):
+    """Returns the text from the file at file_path"""
+    try:
+        with open(file_path, "r") as f:
+            text = f.read().strip()
+            return text
+    except FileNotFoundError:
+        text = ""
+        return text
+    
+def writeGreetingTxt(file_path, greeting):
+    """Writes the greeting to the file at file_path"""
+    with open(file_path, "w") as f:
+        f.write(greeting)
+
 
 def main():
     """Main Program loop"""
@@ -135,29 +150,26 @@ def main():
     with open(file_path, "w") as f:
         f.write("")
 
+    # stores the last text read/written by the program to the file at filepath
+    last_text = ""
+
     # System Message
     print(f"Watching '{file_path}' for updates...")
-
-
-    ### Main Loop for processing requests
-    # initialize text to ignore
-    last_text = ""
+        
+    # Main Loop for processing requests
     while True:
-        try:
-            with open(file_path, "r") as f:
-                text = f.read().strip()
-        except FileNotFoundError:
-            text = ""
+        # Read greeting.txt file
+        text = readTxtFile(file_path)
 
+        # Is text not blank and different from previously read text?
         if text and text != last_text:
             name = text
             greeting = build_greeting(name)
-            with open(file_path, "w") as f:
-                f.write(greeting)
+            writeGreetingTxt(file_path, greeting)
             print(f"Updated greeting for '{name}'.")
             last_text = greeting
 
-        # time.sleep(1)  # small delay to lower resource usage
+        time.sleep(1)  # small delay to lower resource usage
 
 if __name__ == "__main__":
     main()
