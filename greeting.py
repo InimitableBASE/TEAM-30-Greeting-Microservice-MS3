@@ -5,11 +5,11 @@ import calendar
 
 
 def get_us_holiday(dt):
-    """Return a holiday greeting string if dt is a standard Federal US 
-    holiday, otherwise return None."""
+    """Return a holiday greeting string if dt (datetime Object) is a standard
+    Federal US holiday, otherwise return None."""
     y = dt.year
     
-    # Fixed-date US Federal Holidays
+    ### Handle Fixed-date US Federal Holidays
     fixed_holidays = {
         (1, 1): "Happy New Year!",
         (6, 19): "Happy Juneteenth!",
@@ -21,11 +21,10 @@ def get_us_holiday(dt):
         return fixed_holidays[(dt.month, dt.day)]
 
     ### Handle Movable Holidays
-    
     # Set calendar
     c = calendar.Calendar(firstweekday=calendar.SUNDAY)
     
-    ### MLK Day
+    ## MLK Day
     # Build List of Mondays in January
     jan_mondays = [d for d in c.itermonthdates(y, 1) if d.month == 1 and \
                    d.weekday() == 0]
@@ -34,7 +33,7 @@ def get_us_holiday(dt):
     if dt == mlk_day:
         return "Happy Martin Luther King Day!"
 
-    ### Presidents Day
+    ## Presidents Day
     # Build List of Mondays in January
     feb_mondays = [d for d in c.itermonthdates(y, 2) if d.month == 2 and \
                    d.weekday() == 0]
@@ -43,7 +42,7 @@ def get_us_holiday(dt):
     if dt == pres_day:
         return "Happy Presidents Day!"
 
-    # Memorial Day: 
+    ## Memorial Day: 
     # Build LIst of Mondays in May
     may_mondays = [d for d in c.itermonthdates(y, 5) if d.month == 5 and \
                    d.weekday() == 0]
@@ -52,7 +51,7 @@ def get_us_holiday(dt):
     if dt == memorial_day:
         return "Happy Memorial Day!"
 
-    ### Labor Day
+    ## Labor Day
     # Build List of Mondays in September
     sept_mondays = [d for d in c.itermonthdates(y, 9) if d.month == 9 and \
                     d.weekday() == 0]
@@ -61,7 +60,7 @@ def get_us_holiday(dt):
     if dt == labor_day:
         return "Happy Labor Day!"
     
-    ### Columbus/Indigenous Peoples Day
+    ## Columbus/Indigenous Peoples Day
     # Build List of Mondays in October
     oct_mondays = [d for d in c.itermonthdates(y, 10) if d.month == 10 and \
                     d.weekday() == 0]
@@ -70,7 +69,7 @@ def get_us_holiday(dt):
     if dt == columbus_day:
         return "Happy Columbus or Indigenous Peoples Day!"
 
-    # Thanksgiving: 4th Thursday of November
+    ## Thanksgiving: 4th Thursday of November
     # Build List of Thursdays in November
     nov_thursdays = [d for d in c.itermonthdates(y, 11) if d.month == 11 and \
                      d.weekday() == 3]
@@ -78,7 +77,7 @@ def get_us_holiday(dt):
     if dt == thanksgiving:
         return "Happy Thanksgiving!"
 
-    ### No Holiday 
+    # No Holiday 
     return None
 
 
@@ -137,9 +136,7 @@ def writeGreetingTxt(file_path, greeting):
 
 
 def main():
-    """Main Program loop"""
-    ### Setup Folder and text file, create if not present
-    # Set Folder Name
+
     folder = "Greet Folder"
     file_path = os.path.join(folder, "greeting.txt")
 
@@ -158,18 +155,15 @@ def main():
         
     # Main Loop for processing requests
     while True:
-        # Read greeting.txt file
         text = readTxtFile(file_path)
 
-        # Is text not blank and different from previously read text?
         if text and text != last_text:
-            name = text
-            greeting = build_greeting(name)
+            greeting = build_greeting(text)
             writeGreetingTxt(file_path, greeting)
-            print(f"Updated greeting for '{name}'.")
+            print(f"Updated greeting for '{text}'.")
+            # update to greeting so program knows to ignore message as an input
             last_text = greeting
-
-        time.sleep(1)  # small delay to lower resource usage
+        time.sleep(1)  # small delay to lower OS resource usage
 
 if __name__ == "__main__":
     main()
