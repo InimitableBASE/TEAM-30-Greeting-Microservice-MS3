@@ -119,7 +119,7 @@ def build_greeting(name):
         greeting += " " + holiday_greeting
     return greeting
 
-def readTxtFile(file_path):
+def read_txt_file(file_path):
     """Returns the text from the file at file_path"""
     try:
         with open(file_path, "r") as f:
@@ -129,7 +129,7 @@ def readTxtFile(file_path):
         text = ""
         return text
     
-def writeGreetingTxt(file_path, greeting):
+def write_greeting_txt(file_path, greeting):
     """Writes the greeting to the file at file_path"""
     with open(file_path, "w") as f:
         f.write(greeting)
@@ -155,11 +155,11 @@ def main():
         
     # Main Loop for processing requests
     while True:
-        text = readTxtFile(file_path)
+        text = read_txt_file(file_path)
 
         if text and text != last_text:
             greeting = build_greeting(text)
-            writeGreetingTxt(file_path, greeting)
+            write_greeting_txt(file_path, greeting)
             print(f"Updated greeting for '{text}'.")
             # update to greeting so program knows to ignore message as an input
             last_text = greeting
